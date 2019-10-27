@@ -1,0 +1,35 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+                            http://www.springframework.org/schema/beans
+							http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/context
+							http://www.springframework.org/schema/context/spring-context.xsd
+                        ">
+
+    <bean id="realm" class="com.sdh.realm.MyRealm">
+        <property name="userService" ref="userServiceImpl"></property>
+        <property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+                <property name="hashAlgorithmName" value="SHA-256"></property>
+                <property name="hashIterations" value="1000"></property>
+                <!-- 解码时使用Base64还是Hex(16进制),true使用Hex false使用Base64-->
+                <property name="storedCredentialsHexEncoded" value="false"></property>
+            </bean>
+        </property>
+
+    </bean>
+
+    <!-- shiro核心组件 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="realm"></property>
+
+    </bean>
+
+    <!-- shiroFilter -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"></property>
+    </bean>
+
+</beans>

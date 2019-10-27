@@ -1,0 +1,19 @@
+#display{
+    float: left;
+    width: auto;
+    height: auto;
+    margin-left: 40px;
+}
+#addGoods{
+    width: 345px;
+    height: 284px;
+    border: 1px solid #000000;
+}
+#showGoods,#showGoodsTable{
+    width: 1500px;
+    color: red;
+    text-align: center;
+}
+#updateGoods{
+    width:600px;
+}
