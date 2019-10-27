@@ -12,8 +12,8 @@
                         ">
 
     <context:component-scan base-package="com.sdh" use-default-filters="false">
-        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-    </context:component-scan>
+    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+</context:component-scan>
 
     <mvc:annotation-driven/>
 
@@ -23,4 +23,10 @@
     </bean>
 
     <mvc:default-servlet-handler/>
+
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 最大可上传的文件大小   byte 超出后会抛出MaxUploadSizeExceededException异常，可以异常解析器捕获 -->
+        <property name="maxUploadSize" value="2097152"></property>
+    </bean>
 </beans>

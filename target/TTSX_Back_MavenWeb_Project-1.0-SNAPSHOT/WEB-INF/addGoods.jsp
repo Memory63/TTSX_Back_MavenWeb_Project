@@ -12,9 +12,9 @@
         $.ajax({
             url:'/TTSX_Back_MavenWeb_Project/goods/addGoods',
             type:'post',
-            data:JSON.stringify($("#add_form").serializeJSON()),
-            dataType:'json',
-            contentType:'application/json;charset=utf-8',
+            data:new FormData($("#add_form")[0]),/*JSON.stringify($("#add_form").serializeJSON()),*/
+            contentType: false,
+            processData: false,
             success:function (data) {
                 alert(data)
             }
@@ -22,7 +22,7 @@
     }
 </script>
 <div id="addGoods">
-    <form id="add_form">
+    <form id="add_form" enctype="multipart/form-data" method="post">
         <table border="1" cellspacing="0" style="text-align: center">
             <tr>
                 <td>商品名称</td>
@@ -55,7 +55,7 @@
             <tr>
                 <td>商品图片</td>
                 <td>
-                    <input type="file" name="picture">
+                    <input type="file" name="pic">
                 </td>
             </tr>
             <tr>

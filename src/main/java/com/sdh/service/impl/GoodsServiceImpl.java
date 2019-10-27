@@ -39,6 +39,7 @@ public class GoodsServiceImpl implements GoodsService {
     public void addGoods(Goods goods) {
         goods.setId(null);
         goods.setPubdate(new Date());
+        goods.setPictureDetail(null);
         goods.setShow("0");
         goodsDao.addGoods(goods);
     }

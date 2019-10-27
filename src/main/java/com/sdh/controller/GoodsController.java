@@ -7,9 +7,14 @@ import com.sdh.service.GoodsTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @ClassName GoodsController
@@ -27,6 +32,11 @@ public class GoodsController {
     @Autowired
     private GoodsTypeService goodsTypeService;
 
+    /**
+     * todo: 查看商品
+     * @param model
+     * @return
+     */
     @GetMapping("showGoods")
     public String showGoodsPage(Model model){
         List<Goods> goods = goodsService.queryGoods();
@@ -53,10 +63,19 @@ public class GoodsController {
      */
     @PostMapping("addGoods")
     @ResponseBody
-    public String addGoods(@RequestBody Goods goods){
-        System.out.println(goods);
+    public String addGoods(Goods goods){
+        String uuid = UUID.randomUUID().toString();
+        goods.setPicture("goods/"+uuid+"_"+goods.getPic().getOriginalFilename());
+        //获取文件类型
+        String fileType = goods.getPic().getContentType();
+        String[] fileTypeArr = fileType.split("/");
+        String type = "image";
+        if(!type.equals(fileTypeArr[0])){
+            return "3";
+        }
         try {
-//            goodsService.addGoods(goods);
+            goods.getPic().transferTo(new File("images/goods/"+goods.getPicture()));
+            goodsService.addGoods(goods);
             return "1";
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,6 +83,12 @@ public class GoodsController {
         }
     }
 
+    /**
+     * todo: 跳转到修改页面
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("updateGoods")
     public String updateGoodsPage(Integer id,Model model){
         Goods goods = goodsService.queryGoodsById(id);
@@ -71,6 +96,11 @@ public class GoodsController {
         return "WEB-INF/modifyGoods";
     }
 
+    /**
+     * todo: 删除指定商品，返回是否成功
+     * @param id
+     * @return
+     */
     @GetMapping("deleteGoods")
     @ResponseBody
     public String deleteGoods(Integer id){
