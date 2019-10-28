@@ -6,10 +6,10 @@
 ## 使用技术
 
 > * 项目管理工具：Maven
-> * 基本框架:Spring+SpringMVC+MyBatis
-> * 安全控制框架:Shiro
-> * 使用Tomcat 8.5.45
-> * 使用JDK 1.8.0_211
+> * 基本框架：Spring+SpringMVC+MyBatis
+> * 安全控制框架：Shiro
+> * Web应用服务器：使用Tomcat 8.5.45
+> * JDK版本：使用JDK 1.8.0_211
 
 ## 定义后台系统功能
 
