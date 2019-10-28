@@ -50,7 +50,7 @@
                     <td>${g.show==1?'是':'否'}</td>
                     <td>
                         <button onclick="deleteGoods(${g.id})">删除</button>
-                        <button onclick="updateGoods(${g.id})">修改</button>
+                        <button onclick="updateGoodsPage(${g.id})">修改</button>
                     </td>
 
                 </tr>

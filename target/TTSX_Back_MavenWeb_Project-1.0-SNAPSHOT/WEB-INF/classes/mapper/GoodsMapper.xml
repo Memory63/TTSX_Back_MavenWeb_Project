@@ -9,7 +9,8 @@
     </select>
 
     <insert id="addGoods" parameterType="Goods">
-        insert into goods values(#{id},#{tid},#{goodsName},#{picture},#{pictureDetail},#{pubdate},#{price},#{weight},#{intro},#{datail},#{show})
+        insert into goods values(#{id},#{tid},#{goodsName},#{picture},#{pictureDetail},#{pubdate},
+        #{price},#{weight},#{intro},#{detail},#{show})
     </insert>
 
     <delete id="deleteGoods" parameterType="integer">
@@ -19,4 +20,11 @@
     <select id="queryGoodsById" parameterType="integer" resultType="Goods">
         select * from goods where id=#{id}
     </select>
+
+    <update id="updateGoodsById" parameterType="Goods">
+        update goods set
+        tid=#{tid},goodsName=#{goodsName},picture=#{picture},pictureDetail=#{pictureDetail},
+        pubdate=#{pubdate},price=#{price},weight=#{weight},intro=#{weight},detail=#{detail},`show`=#{show}
+        where id=#{id}
+    </update>
 </mapper>

@@ -27,8 +27,8 @@
                             $(".msg").show();
                         }
                     },
-                    error:function (data) {
-                        alert(data)
+                    error:function () {
+                        alert("登录用户名或密码错误")
                     }
                 })
             })

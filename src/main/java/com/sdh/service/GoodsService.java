@@ -23,4 +23,6 @@ public interface GoodsService {
     void deleteGoods(Integer id);
 
     Goods queryGoodsById(Integer id);
+
+    void updateGoodsById(Goods goods);
 }

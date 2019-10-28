@@ -40,7 +40,7 @@ public class GoodsServiceImpl implements GoodsService {
         goods.setId(null);
         goods.setPubdate(new Date());
         goods.setPictureDetail(null);
-        goods.setShow("0");
+        goods.setShow(0);
         goodsDao.addGoods(goods);
     }
 
@@ -53,7 +53,16 @@ public class GoodsServiceImpl implements GoodsService {
     public Goods queryGoodsById(Integer id) {
         Goods goods = goodsDao.queryGoodsById(id);
         GoodsType goodsType = goodsTypeDao.queryGoodsTypeById(goods.getTid());
+        List<GoodsType> goodsTypes = goodsTypeDao.queryGoodsType();
+        goods.setGoodsTypeList(goodsTypes);
         goods.setGoodsType(goodsType);
         return goods;
+    }
+
+    @Override
+    public void updateGoodsById(Goods goods) {
+        goods.setPubdate(new Date());
+        goods.setPictureDetail(null);
+        goodsDao.updateGoodsById(goods);
     }
 }

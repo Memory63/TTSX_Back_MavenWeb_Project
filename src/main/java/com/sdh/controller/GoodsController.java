@@ -4,6 +4,7 @@ import com.sdh.pojo.Goods;
 import com.sdh.pojo.GoodsType;
 import com.sdh.service.GoodsService;
 import com.sdh.service.GoodsTypeService;
+import com.sdh.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -101,11 +102,32 @@ public class GoodsController {
         return "WEB-INF/modifyGoods";
     }
 
-    @PostMapping("updateGoods")
+    @PostMapping(value = "updateGoods",produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String updateGoods(Goods goods){
-
-        return "";
+    public String updateGoods(Goods goods,HttpSession session){
+        try {
+            String filename = goods.getPic().getOriginalFilename();
+            if (!StringUtils.isEmpty(filename)) {
+                /* 获取上传的文件类型，判断是否是图片 */
+                String contentType = goods.getPic().getContentType();
+                String[] fileType = contentType.split("/");
+                if(!"image".equals(fileType[0])){
+                    return "3";
+                }
+                /* 获取唯一文件名，为了防止文件重名 */
+                String str = UUID.randomUUID().toString();
+                String filename1 = "goods/"+str+"_"+filename;
+                String realPath = session.getServletContext().getRealPath("/images");
+                goods.getPic().transferTo(new File(realPath+"/"+filename1));
+                /* 数据库存储路径 */
+                goods.setPicture(filename1);
+            }
+            goodsService.updateGoodsById(goods);
+            return "1";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "0";
+        }
     }
 
     /**

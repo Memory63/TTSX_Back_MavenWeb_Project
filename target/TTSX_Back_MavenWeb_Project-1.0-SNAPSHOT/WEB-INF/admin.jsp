@@ -30,7 +30,7 @@
 
 
         /* 修改商品 */
-        function updateGoods(id) {
+        function updateGoodsPage(id) {
             $("#display").load("${pageContext.request.contextPath}/goods/updateGoods?id="+id);
         }
 

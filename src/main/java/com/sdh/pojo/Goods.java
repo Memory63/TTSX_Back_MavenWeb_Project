@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @ClassName Goods
@@ -31,10 +32,11 @@ public class Goods {
     private Double weight;
     private String intro;
     private String detail;
-    private String show;
+    private Integer show;
     private MultipartFile pic;
     /**
      * 一对多查询
      */
     private GoodsType goodsType;
+    private List<GoodsType> goodsTypeList;
 }

@@ -25,4 +25,6 @@ public interface GoodsDao {
     void deleteGoods(@Param("id") Integer id);
 
     Goods queryGoodsById(@Param("id") Integer id);
+
+    void updateGoodsById(Goods goods);
 }
