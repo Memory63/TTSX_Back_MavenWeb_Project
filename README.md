@@ -19,9 +19,9 @@
 >       - 使用Ajax异步删除
 >   - 商品的修改✔
 >       - 异步，后端修改完成后跳转商品显示页面
->   - 建立两种角色：user /  admin  
+>   - 建立两种角色：user /  admin ✔  
 >       - 使用shiro安全框架，控制访问
->   - 两种权限：product:query  product:update  
+>   - 两种权限：product:query  product:update ✔ 
 >       - 使用shiro安全框架，控制访问
->   - product:update权限的才可以堆商品进行 添加和修改 
+>   - product:update权限的才可以对商品进行 添加和修改 ✔
 >       - 使用shiro安全框架，控制访问

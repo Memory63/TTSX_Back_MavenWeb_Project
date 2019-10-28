@@ -10,6 +10,8 @@
 
     <bean id="realm" class="com.sdh.realm.MyRealm">
         <property name="userService" ref="userServiceImpl"></property>
+        <property name="roleService" ref="roleServiceImpl"></property>
+        <property name="permissionService" ref="permissionServiceImpl"></property>
         <property name="credentialsMatcher">
             <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
                 <property name="hashAlgorithmName" value="SHA-256"></property>

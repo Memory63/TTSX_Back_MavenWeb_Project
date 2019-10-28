@@ -5,6 +5,10 @@ import com.sdh.pojo.GoodsType;
 import com.sdh.service.GoodsService;
 import com.sdh.service.GoodsTypeService;
 import com.sdh.utils.StringUtils;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,6 +44,9 @@ public class GoodsController {
      * @return
      */
     @GetMapping("showGoods")
+    @RequiresAuthentication
+    @RequiresRoles(value = {"user","admin"},logical = Logical.OR)
+    @RequiresPermissions(value = {"product:query","product:update"},logical = Logical.OR)
     public String showGoodsPage(Model model){
         List<Goods> goods = goodsService.queryGoods();
         model.addAttribute("goodsList",goods);
@@ -52,6 +59,9 @@ public class GoodsController {
      * @return
      */
     @GetMapping("addGoods")
+    @RequiresAuthentication
+    @RequiresRoles(value = {"admin"})
+    @RequiresPermissions(value = {"product:update","product:query"},logical = Logical.AND)
     public String addGoodsPage(Model model){
         List<GoodsType> goodsTypes = goodsTypeService.queryGoodsType();
         model.addAttribute("goodsType",goodsTypes);
@@ -65,6 +75,9 @@ public class GoodsController {
      */
     @PostMapping(value = "addGoods",produces = "text/plain;charset=utf-8")
     @ResponseBody
+    @RequiresAuthentication
+    @RequiresRoles(value = {"admin"})
+    @RequiresPermissions(value = {"product:update","product:query"},logical = Logical.AND)
     public String addGoods(Goods goods, HttpSession session){
         String uuid = UUID.randomUUID().toString();
         goods.setPicture("goods/"+uuid+"_"+goods.getPic().getOriginalFilename());
@@ -96,14 +109,26 @@ public class GoodsController {
      * @return
      */
     @GetMapping("updateGoods")
+    @RequiresAuthentication
+    @RequiresRoles(value = {"admin"})
+    @RequiresPermissions(value = {"product:update","product:query"},logical = Logical.AND)
     public String updateGoodsPage(Integer id,Model model){
         Goods goods = goodsService.queryGoodsById(id);
         model.addAttribute("goods",goods);
         return "WEB-INF/modifyGoods";
     }
 
+    /**
+     * todo: 修改指定id的商品
+     * @param goods
+     * @param session
+     * @return
+     */
     @PostMapping(value = "updateGoods",produces = "text/plain;charset=utf-8")
     @ResponseBody
+    @RequiresAuthentication
+    @RequiresRoles(value = {"admin"})
+    @RequiresPermissions(value = {"product:update","product:query"},logical = Logical.AND)
     public String updateGoods(Goods goods,HttpSession session){
         try {
             String filename = goods.getPic().getOriginalFilename();
@@ -137,6 +162,9 @@ public class GoodsController {
      */
     @GetMapping("deleteGoods")
     @ResponseBody
+    @RequiresRoles(value = {"admin"})
+    @RequiresAuthentication
+    @RequiresPermissions(value = {"product:update","product:query"},logical = Logical.AND)
     public String deleteGoods(Integer id){
         System.out.println(id);
         try {
