@@ -92,7 +92,7 @@ public class GoodsController {
             String images = session.getServletContext().getRealPath("/images");
 //            System.out.println(images);
 //            goods.getPic().transferTo(new File("E:/MyStudy/IDEA-WorkSpace/ThreeLevel/TTSX_Back_MavenWeb_Project/src/main/webapp/images/"+goods.getPicture()));
-            goods.getPic().transferTo(new File(images+"/"+goods.getPicture()));
+            goods.getPic().transferTo(new File("E:/MyStudy/IDEA-WorkSpace/ThreeLevel/TTSX_MavenWeb_Project/src/main/webapp/images/"+goods.getPicture()));
             goodsService.addGoods(goods);
 //            return URLEncoder.encode(goods.getPicture(),"utf-8");
             return goods.getPicture();
@@ -142,8 +142,8 @@ public class GoodsController {
                 /* 获取唯一文件名，为了防止文件重名 */
                 String str = UUID.randomUUID().toString();
                 String filename1 = "goods/"+str+"_"+filename;
-                String realPath = session.getServletContext().getRealPath("/images");
-                goods.getPic().transferTo(new File(realPath+"/"+filename1));
+//                String realPath = session.getServletContext().getRealPath("/images");
+                goods.getPic().transferTo(new File("E:/MyStudy/IDEA-WorkSpace/ThreeLevel/TTSX_MavenWeb_Project/src/main/webapp/images/"+filename1));
                 /* 数据库存储路径 */
                 goods.setPicture(filename1);
             }

@@ -18,3 +18,8 @@
 ### jQuery_ajax报错：Uncaught TypeError: Illegal invocation
 
 > * 异步上传图片出现这个错误。原因：参数写错或没写
+
+### 前后台图片显示问题
+
+> * 后台添加图片，前台无法访问到。
+> * 怎么让前后台都能访问到??
