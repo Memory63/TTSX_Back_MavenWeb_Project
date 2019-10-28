@@ -5,8 +5,8 @@
     margin-left: 40px;
 }
 #addGoods{
-    width: 345px;
-    height: 284px;
+    width:auto;
+    height:auto;
     border: 1px solid #000000;
 }
 #showGoods,#showGoodsTable{

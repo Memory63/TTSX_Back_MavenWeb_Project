@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.List;
 import java.util.UUID;
@@ -61,9 +62,9 @@ public class GoodsController {
      * @param goods
      * @return
      */
-    @PostMapping("addGoods")
+    @PostMapping(value = "addGoods",produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String addGoods(Goods goods){
+    public String addGoods(Goods goods, HttpSession session){
         String uuid = UUID.randomUUID().toString();
         goods.setPicture("goods/"+uuid+"_"+goods.getPic().getOriginalFilename());
         //获取文件类型
@@ -74,9 +75,13 @@ public class GoodsController {
             return "3";
         }
         try {
-            goods.getPic().transferTo(new File("images/goods/"+goods.getPicture()));
+            String images = session.getServletContext().getRealPath("/images");
+//            System.out.println(images);
+//            goods.getPic().transferTo(new File("E:/MyStudy/IDEA-WorkSpace/ThreeLevel/TTSX_Back_MavenWeb_Project/src/main/webapp/images/"+goods.getPicture()));
+            goods.getPic().transferTo(new File(images+"/"+goods.getPicture()));
             goodsService.addGoods(goods);
-            return "1";
+//            return URLEncoder.encode(goods.getPicture(),"utf-8");
+            return goods.getPicture();
         } catch (Exception e) {
             e.printStackTrace();
             return "0";
@@ -94,6 +99,13 @@ public class GoodsController {
         Goods goods = goodsService.queryGoodsById(id);
         model.addAttribute("goods",goods);
         return "WEB-INF/modifyGoods";
+    }
+
+    @PostMapping("updateGoods")
+    @ResponseBody
+    public String updateGoods(Goods goods){
+
+        return "";
     }
 
     /**

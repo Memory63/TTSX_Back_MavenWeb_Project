@@ -28,7 +28,7 @@
                 <tr id="${g.id}">
                     <td>${g.id}</td>
                     <td>
-                        <img src="${pageContext.request.contextPath}/images/${g.picture}">
+                        <img src="${pageContext.request.contextPath}/images/${g.picture}" style="width:180px;height:180px;">
                         ${g.goodsName}
                     </td>
                     <td>${g.goodsType.typeName}</td>

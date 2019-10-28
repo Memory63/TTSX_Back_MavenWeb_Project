@@ -9,7 +9,7 @@
     </select>
 
     <insert id="addGoods" parameterType="Goods">
-        insert into goods values(#{id},#{tid},#{goodsName},#{picture},#{pictureDetail},#{pubdate},#{price},#{weight},#{intro},#{datail},#{show})
+        insert into goods values(#{id},#{tid},#{goodsName},#{picture},#{pictureDetail},#{pubdate},#{price},#{weight},#{intro},#{detail},#{show})
     </insert>
 
     <delete id="deleteGoods" parameterType="integer">

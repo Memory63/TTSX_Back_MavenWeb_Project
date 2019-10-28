@@ -36,21 +36,22 @@
 
         /* 删除商品 */
         function deleteGoods(id) {
-            $.ajax({
-                url:'${pageContext.request.contextPath}/goods/deleteGoods',
-                type:'get',
-                data:'id='+id,
-                success:function (data) {
-                    alert(data)
-                    if(data==1){
-                        alert("删除成功")
-                        $("#"+id).remove();
-                    }else{
-                        alert("删除失败")
+            if(confirm("确定删除吗?")){
+                $.ajax({
+                    url:'${pageContext.request.contextPath}/goods/deleteGoods',
+                    type:'get',
+                    data:'id='+id,
+                    success:function (data) {
+                        if(data==1){
+                            alert("删除成功")
+                            $("#"+id).remove();
+                        }else{
+                            alert("删除失败")
+                        }
                     }
-                }
 
-            })
+                })
+            }
         }
     </script>
 </head>

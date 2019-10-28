@@ -8,6 +8,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script type="text/javascript">
+
+    /* 添加商品 */
     function addGoods() {
         $.ajax({
             url:'/TTSX_Back_MavenWeb_Project/goods/addGoods',
@@ -16,10 +18,26 @@
             contentType: false,
             processData: false,
             success:function (data) {
-                alert(data)
+                if(data!=null){
+                    if(confirm("是否继续添加")){
+                        $("#img").attr("src","${pageContext.request.contextPath}/images/"+data);
+                    }else{
+                        $("#display").load("${pageContext.request.contextPath}/goods/showGoods");
+                    }
+                }else if (data==0){
+                    alert("添加失败")
+                }else if(data==3){
+                    alert("只能上传图片")
+                }else{
+                    alert("未知错误")
+                }
+            },
+            error:function () {
+                alert("未知错误，请联系管理员")
             }
         })
     }
+
 </script>
 <div id="addGoods">
     <form id="add_form" enctype="multipart/form-data" method="post">
@@ -56,6 +74,7 @@
                 <td>商品图片</td>
                 <td>
                     <input type="file" name="pic">
+                    <img id="img" style="width: 100px">
                 </td>
             </tr>
             <tr>
